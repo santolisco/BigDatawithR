@@ -1,0 +1,39 @@
+---
+title: "Lab3 -  Linear Regression"
+author: "Santiago Liscovsky"
+date: "1 November 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r DataSet, include=FALSE}
+damage_y = c(26.2, 17.8, 31.3, 23.1, 27.5, 36.0, 14.1, 22.3, 19.6, 31.3, 24.0, 17.3, 43.2, 36.4, 26.1)
+distance_x = c(3.4, 1.8, 4.6, 2.3, 3.1, 5.5, 0.7, 3.0, 2.6, 4.3, 2.1, 1.1, 6.1, 4.8, 3.8)
+```
+
+#### 1)	Use R to estimate the unknown parameters of the hypothesised model. Find the least squares estimates of the slope ${\hat\beta}_1$ and intercept ${\hat\beta}_0$ on the printout. Write down the least squares equation for this model.
+
+```{r}
+lm.fit = lm(damage_y~distance_x)
+lm.fit
+```
+#### From the output, ${\hat\beta}_1=4.919$ and ${\hat\beta}_0=10.278$. As a result, the least squares equation is $distance = 4.919*distance +10.278$.
+
+#### 2)	Plot the dataset and the least squares line on the same figure.
+```{r, echo=TRUE}
+plot(distance_x, damage_y, xlab="distance", ylab = "damage", main = "Plot of distance vs damage")
+abline(lm.fit)
+```
+
+
+####3)	How to interpret the slope ${\hat\beta}_1$ and y-intercept ${\hat\beta}_0$ of the least squares line? 
+the y-intercept with value 10.278, we can say that from initial cost for damage will be ${\hat\beta}_0$
+Besides, for every toushand miles the cost for damage is 4.919.
+
+####4) Which model fits the data. a) What is the RSE of this model? How to interpret it? b) what the is the R-suared value? How to interpret it
+```{r, echo=TRUE}
+summary(lm.fit)
+```
+

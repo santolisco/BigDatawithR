@@ -1,0 +1,124 @@
+---
+title: "CW1_2018"
+author: "Santiago Liscovsky"
+date: "30 October 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Basic Statistics
+```{r}
+##a.Sibling survey
+sbl = c(2,3,0,5,2,1,1,0,3,3)
+
+summary(sbl)
+
+##Mode Calculation
+
+names(sort(-table(sbl)))[1]
+
+##Variance
+var(sbl)
+##Standard deviation
+sd(sbl)
+
+##b.Ageing Survey
+
+age = c(23, 25, 18, 45, 30, 21, 22, 19, 29, 35)
+
+##i. Covariance between siblings and ages
+cov(sbl, age)
+
+## Correlation between siblings and ages
+cor(sbl, age)
+
+##Positive or negative correlation between siblings and student ages
+plot(sbl, age, xlab="Nro of Siblings", ylab="Age")
+
+##There is strong positive correlation betwen siblings and student age
+
+##Even there is a strong correlation, the data isn't justifying the relationship between numbers os sblings
+#and the age of the student
+
+```
+
+##Get Familiar with R
+``` {r echo=FALSE}
+library(MASS)
+'we see that the rows are neighbourhoods of the Boston area wich are the elements and the
+columns are 14 predictor variables, including:
+crim: per capita crime rate by town
+zn: proportion of residential land zoned for lots over 25,000 sq.ft
+indus: proportion of non-retail business acres per town
+chas: Charles River dummy variable (= 1 if tract bounds river; 0 otherwise)
+nox: nitrogen oxides concentration (parts per 10 million)
+rm: average number of rooms per dwelling
+age: proportion of owner-occupied units built prior to 1940
+dis: weighted mean of distances to five Boston employment centres
+rad: index of accessibility to radial highways
+tax: full-value property-tax rate per $10,000
+ptratio: pupil-teacher ratio by town
+black: 1000(Bk - 0.63)ˆ2, where Bk is the proportion of blacks by town
+lstat: lower status of the population (percent)
+medv: median value of owner-occupied homes in $1000s'
+
+#b.
+plot(Boston, pch='.')
+'We might found that some of the predictors are related, such as:
+medv-rm (Positive)
+medv-lstat (Negative)
+lstat-rm(Negative)
+dis-nox(Negative)
+age-nox(positive)'
+
+#c. Any predictors associate with per crime rate
+
+crim_cor <- function(predictor, predictor2 = Boston$crim) {return(cor(predictor, Boston$crim))}
+print(sort(sapply(Boston, crim_cor)))
+
+'rad-crim --> strong positive correlation. It seems that the high access to motorway increase the crime rates.
+tax-crim -> strong positive correlation
+black-crim -> strong negative correlation
+medv-crim -> strong negative correlation'
+
+#d. Any surburbs to have particularly high crime rate?
+'With boxplot to examine the rates'
+
+boxplot(Boston[c("crim")], horizontal=TRUE, par(pin=c(4,1)), xlab="Per capita crime rate")
+
+boxplot(Boston[c("tax")], horizontal=TRUE,xlab="full-value property-tax rate per $10,000")
+
+boxplot(Boston[c("ptratio")], horizontal=TRUE,xlab="pupil-teacher ratio by town")
+
+t(sapply(Boston[c("crim", "tax", "ptratio")], range))
+
+'Crime rate -> high numbers where the wider number os surburs have 30 % of crime rate. But also some neighbours rose to 88 % for crime rate per capita.
+Besides, the tax value for proteties has a max of 711 but the mean is around 300.
+The pupils per class the max is 22'
+
+#e.Number of Neighbours bound river
+sum(Boston$chas)
+
+#f. Median pupil
+
+median(Boston$ptratio)
+
+#g. lowest media occupied-home
+which.min(Boston$medv)
+
+t(Boston[which.min(Boston$medv), ])
+
+t(sapply(Boston, range))
+
+'Comparing the values for neighbourhood 399 with the ranges across the whole data set, we see the following
+predictors as standing out: zn (low), indus (high), age (high), dis (low), rad (high), tax (high), ptratio
+(high), black (high), and medv (low).
+The values suggest that this is an, old, highly industrial, low-income, inner-city neighbourhood,'
+
+
+
+
+```
