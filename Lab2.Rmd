@@ -1,0 +1,71 @@
+---
+title: "Lab2"
+author: "Santiago Liscovsky"
+date: "18 January 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, echo=TRUE}
+x = c(10, 2, 15, 6, 4, 9, 12, 11, 3, 0, 12, 10, 9, 7, 11, 10, 8, 5, 10, 6)
+#### 1.a)	number of observation
+length(x)
+#### 1.b)	sum x
+sum(x)
+
+#### 1.c)	Mean
+mean(x)
+
+#### 1.d)	Median
+median(x)
+
+#### 1.e)	Mode
+
+
+#### 1.e)	five number summary
+summary(x)
+
+#### 1.g)	variance
+var(x)
+
+#### 1.g)	standard desviation
+sd(x)
+```
+
+```{r, echo=TRUE}
+
+#### 2.)	define vector
+set.seed(1)
+y = rnorm(20, mean = mean(x), sd=1)
+#### 2.a)	define vector
+cor(x,y)
+cov(x,y)
+
+
+#### 2.b)	change the length for X
+set.seed(5)
+y = rnorm(x, mean = mean(x), sd=1)
+cor(x,y)
+cov(x,y)
+```
+
+```{r, echo=TRUE}
+set.seed(100)
+y = rnorm(x, mean = mean(x), sd=1)
+cor(x,y)
+cov(x,y)
+
+set.seed(200)
+z=rnorm(20, mean=8, sd=1)
+plot(x, z)
+
+z=rnorm(20, mean=8, sd=10)
+plot(x, z)
+
+boxplot(x)
+boxplot(x, y)
+
+```
